@@ -1,0 +1,144 @@
+{% extends 'manager/layout.html' %}
+{% load static %}
+{% block title %} Dashboard | Billiard MS {% endblock title %}
+<!--  MAIN BODY START HERE -->
+{% block content %}
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <!---<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">--->
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+            <div class="clearfix">
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!---<div class="col-lg-12 grid-margin">--->
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tbody>
+                {% for tab in TableBs %}
+                  <tr>
+                    {% if tab.active %}
+                      <td class="font-weight-bold">
+                        <a href="{% url 'tabler:tab_act_ok' pk=tab.id %}">
+                          {{ tab.id }} ( {{ tab.type }} )
+                        </a>
+                      </td>
+                    {% else %}
+                      <td class="font-weight-normal">
+                        {{ tab.id }} ( {{ tab.type }} )
+                      </td>
+                    {% endif %}
+                    <td>
+                      {% if tab.active %}
+                        {{ tab.active_time }}
+                      {% else %}
+                        <a href="{% url 'tabler:tab_act_new' pk=tab.id %}">
+                          Active!
+                        </a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-5 stretch-card">
+                <h4 class="text-center text-primary">
+                  <a href="">
+                    BÀN SỐ {{ TableAct.id }}
+                  </a>
+                </h4>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-5 stretch-card">
+                <button name="btn_order">
+                  <a href="{% url 'tabler:tab_act_order' pk=TableAct.id %}">
+                    Order
+                  </a>
+                </button>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-5 stretch-card">
+                <button name="btn_order">
+                  <a href="{% url 'tabler:tab_act_split' pk=TableAct.id %}">
+                    Ngắt giờ
+                  </a>
+                </button>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-5 stretch-card">
+                <button name="btn_order">
+                  <a href="{% url 'tabler:tab_act_ask_finish' pk=TableAct.id %}">
+                    Thanh Toán
+                  </a>
+                </button>
+              </div>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                {% if Bills.count > 0 %}
+                  <tr>
+                    {% for bill in Bills %}
+                      <tr>
+                        <th>
+                          {{ bill.product }}
+                        </th>
+                        <td class="text-right">
+                          {% if bill.quantity is not None %}
+                            {{ bill.quantity }}
+                          {% endif %}
+                        </td>
+                        <td class="text-right">
+                          {% if bill.price is not None %}
+                            {{ bill.price }}
+                          {% endif %}
+                        </td>
+                        {% if "Tổng tiền cơ" in bill.product  %}
+                          <td class="table-primary text-right text-google">
+                        {% else %}
+                          <td class="text-right">
+                        {% endif %}
+                          {% if bill.paid is not None %}
+                            {{ bill.paid }}
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tr>
+                {% endif %}
+                {% if TableBActSelect.note != "" %}
+                  <tr>
+                    <th style="width:25%">Ghi chú:</th>
+                    <td>{{ TableBActSelect.note }}</td>
+                  </tr>
+                {% endif %}
+              </table>
+            </div>
+          </div>
+          <div class="card-body">
+            <h4 class="text-center text-dribbble">
+              TỔNG CỘNG:&emsp;&emsp;{{ Total_Paid }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+</div>

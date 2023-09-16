@@ -1,0 +1,89 @@
+{% extends 'manager/layout.html' %}
+{% load static %}
+{% block title %} Dashboard | Billiard MS {% endblock title %}
+<!--  MAIN BODY START HERE -->
+{% block content %}
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <!---
+    <div class="row">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    ---->
+    <div class="row">
+      <!---<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">--->
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+            <div class="clearfix">
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!---<div class="col-lg-12 grid-margin">--->
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tbody>
+                {% for tab in TableBs %}
+                  <tr>
+                    {% if tab.active %}
+                      <td class="font-weight-bold">
+                      <a href="{% url 'tabler:tab_act_ok' pk=tab.id %}">
+                        {{ tab.id }} ( {{ tab.type }} )
+                      </a>
+                      </td>
+                    {% else %}
+                      <td class="font-weight-normal">
+                        {{ tab.id }} ( {{ tab.type }} )
+                      </td>
+                    {% endif %}
+                    <td>
+                      {% if tab.active %}
+                        {{ tab.active_time }}
+                      {% else %}
+                        <a href="{% url 'tabler:tab_act_new' pk=tab.id %}">
+                          Active!
+                        </a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-6 grid-margin stretch-card">
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+</div>

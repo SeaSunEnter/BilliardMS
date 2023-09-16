@@ -1,0 +1,13 @@
+django==4.2.3
+mysqlclient==2.2.0
+pillow==9.5.0
+psycopg==3.1.9
+pytz==2023.3
+sqlparse==0.4.4
+django-filter~=23.2
+django-money==3.1.0
+django-datetimepicker==3.14
+xhtml2pdf~=0.2.11
+pdfkit~=1.0.0
+reportlab~=3.6.13
+py-moneyed~=2.0

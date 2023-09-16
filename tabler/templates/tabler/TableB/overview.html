@@ -1,0 +1,120 @@
+{% extends 'manager/layout.html' %}
+{% load static %}
+{% block title %} All Tables | Billiards MS {% endblock title %}
+<!--  MAIN BODY START HERE -->
+{% block content %}
+
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="row">
+          <div class="col-lg-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">
+                  Danh sách Bàn Billiards
+                </h4>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>
+                        STT
+                      </th>
+                      <th>
+                        Tên bàn
+                      </th>
+                      <th>
+                        Loại bàn
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tab in tablebs %}
+                      <tr>
+                        <td class="font-weight-medium">
+                          <a href="{% url 'tabler:tab_view' pk=tab.pk %}">
+                            {{ tab.id }}
+                          </a>
+                        </td>
+                        <td>
+                          <a href="{% url 'tabler:tab_update' pk=tab.pk %}">
+                            {{ tab.name }}
+                          </a>
+                        </td>
+                        <td>
+                          <a href="{% url 'tabler:tab_update' pk=tab.pk %}">
+                            {{ tab.type }}
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+
+                  {% if is_paginated %}
+                  <nav aria-label="Page navigation example" class='mt-4'>
+                    <ul class="pagination">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <i class="mdi mdi-skip-previous"></i>
+                          </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class='page-link '>
+                            <i class="mdi mdi-skip-previous"></i>
+                          </span>
+                        </li>
+                      {% endif %}
+                      <li class="disabled"><span
+                          class='page-link'> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} </span>
+                      </li>
+                      {% if page_obj.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <i class="mdi mdi-skip-next"></i>
+                          </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class='page-link '>
+                            <i class="mdi mdi-skip-next"></i>
+                          </span>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                  {% endif %}
+
+                </div>
+                <h4 class="card-title">
+                  <br>
+                  <a href="javascript:history.back()"
+                     class="btn btn-lg btn-primary float-right">
+                    &emsp;Trở lại&emsp;<i class="mdi mdi-exit-to-app"></i>
+                  </a>
+                  <a href="" class="text-primary float-right">&emsp;&emsp;</a>
+                  <a href="{% url 'tabler:tab_new' %}" class="btn btn-lg btn-primary mb-3 float-right">
+                    <i class="fa fa-plus"></i><i class="fa fa-tablet"></i>
+                    Thêm Bàn mới
+                  </a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block noty %}
+      <script>
+        {% if messages %}
+          {% for message in messages  %}
+            toastr.success('{{message}}')
+          {% endfor %}
+        {% endif %}
+      </script>
+    {% endblock noty %}
+{% endblock content %}
+</div>
